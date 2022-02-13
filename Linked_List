@@ -1,0 +1,201 @@
+#include <iostream>
+using namespace std;
+class node
+{
+public:
+    int data;
+    node* next;
+    node(int element)
+    {
+        data=element;
+        next=NULL;
+    }
+};
+class dll
+{
+    public:
+    int data;
+    dll* next;
+    dll* prev;
+    dll(int element)
+    {
+        data=element;
+        next=NULL;
+        prev=NULL;
+    }
+};
+void insert_at_front(node*&head,node*&tail,int element)
+{
+    node *n=new node(element);
+    if(head==NULL)
+    {
+        head=n;
+        tail=n;
+        // tail->next=NULL;
+    }
+    else{
+        n->next=head;
+        head=n;
+    }
+}
+void insert_at_end(node *&head,node*&tail,int element)
+{
+    node *n=new node(element);
+    if(head==NULL)
+    {
+        head=n;
+        tail=n;
+        // tail->next=NULL;
+    }
+    else{
+        tail->next=n;
+        tail=n;
+    }
+}
+int length(node* head)
+{
+    int p=0;
+    while(head!=NULL)
+    {
+        p++;
+        head=head->next;
+    }
+    return p;
+}
+void insert_at_mid(node* head,node* tail,int element,int pos)
+{
+    int len=length(head);
+    if(pos>len)
+        insert_at_end(head,tail,element);
+    else if(pos<=1)
+        insert_at_front(head,tail,element);
+    else
+    {
+        node *temp=head;
+        for(int i=1;i<pos-1;i++)
+        {
+            temp=temp->next;
+            node* n=new node(element);
+            n->next=temp->next;
+            temp->next=n;
+        }
+    }
+}
+void delete_at_front(node*&head,node*&tail)
+{
+    if(head==NULL)
+        return;
+    else if(head==tail)
+    {    head=NULL;
+        tail=NULL;}
+    else
+       { node *temp=head;
+        head=head->next;
+        delete temp;}
+}
+void delete_at_end(node*&head,node*&tail)
+{
+    if(head==NULL)
+        return;
+    else if(head==tail)
+    {   delete head; 
+        head=NULL;
+        tail=NULL;}
+    else{
+        node *t=head;
+        for(int i=1;i<length(head)-1;i++)
+        {t=t->next;}
+        delete tail;
+        tail=t;tail->next=NULL;
+    }
+}
+void delete_at_position(node*&head,node*&tail,int pos)
+{
+    int len=length(head);
+    if(pos>=len)
+        delete_at_end(head,tail);
+    else if(pos<=1)
+        delete_at_front(head,tail);
+    else
+    {
+        node *temp=head;
+        for(int i=1;i<pos-1;i++)
+        {
+            temp=temp->next;
+        }
+        node *to=temp->next;
+        temp->next=to->next;
+        delete to;
+        to=NULL;
+    }
+}
+bool is_present_rec(node *head,int key)
+{
+    if(head==NULL)
+    {return 0;}
+    else if(head->data==key)
+    {return 1;}
+    return is_present_rec(head->next,key);
+}
+void reverse(node*head,node*tail)
+{
+    if(head==NULL || head==tail){
+        return;
+    }
+    else
+    {
+        node *p=NULL;
+        node* c=head;
+        while(c!=NULL)
+        {
+        node* n=c->next;
+        c->next=p;
+        p=c;
+        c=n;
+        }
+        head=p;
+    }
+}
+void insert_at_front_dll(dll* &head,dll* &tail,int element)
+{
+    dll *n=new dll(element);
+    if(head==NULL)
+    {
+        head=n;
+        tail=n;
+    }
+    else
+    {
+        n->next=head;
+        head->prev=n;
+        head=n;
+    }
+}
+void insert_at_end_dll(dll *&head,dll *&tail,int element)
+{
+    dll* n=new dll(element);
+    if(head==NULL)
+    {
+        head=n;
+        tail=n;
+    }
+    else
+    {
+        tail->next=n;
+        n->prev=tail;
+        tail=n;
+    }
+}
+int main() 
+{
+    dll *head=NULL;
+    dll *tail=NULL;
+    dll *req=NULL;
+    insert_at_end_dll(head,tail,1);
+    insert_at_end_dll(head,tail,2);
+    insert_at_end_dll(head,tail,3);
+    insert_at_end_dll(head,tail,4);
+    insert_at_end_dll(head,tail,5);
+    cout<<head->data<<" "<<tail->data<<endl;
+    cout<<head->next->data<<" "<<tail->prev->data;
+}
