@@ -1,3 +1,7 @@
+INSTRUCTIONS FOR USE:-
+1. Upon simply running the exe file ,the executable will ask to enter the details of borrower.
+2. It will do the calculations and inform you accordingly.
+
 My model works upon the principle of OOPS implementing some basic functions and concepts.My model has these classes primarily:
 1. Bank class inheriting data from interest class(used for implementing interest rates) and stores the net money in bank along with interest rates egligible.
 2. Borrower class inheriting data from borrower_details(used for implementing borrower details)
