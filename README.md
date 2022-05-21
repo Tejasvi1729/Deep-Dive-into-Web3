@@ -1,3 +1,13 @@
+My model works upon the principle of OOPS implementing some basic functions and concepts.My model has these classes primarily:
+1. Bank class inheriting data from interest class(used for implementing interest rates) and stores the net money in bank along with interest rates egligible.
+2. Borrower class inheriting data from borrower_details(used for implementing borrower details)
+3. A friend function which can access data and methods of these 2 classes and is used to finally lend the loan.
+
+Finally calling the function creates an object of borrower class and bank class and input details to do the calculations. Finally after the calculations are done, it returns 2 possiblitites:-
+1.That guy can get the desired loan at an interest rate calculated using his/her previous records.
+2.The loan is rejected.
+It considers previous records of that person along with the amount of money asked and eveluates the result.One just needs to enter the details asked and it will evaluate accordingly.
+
 It completely depends upon the model wheter th model is centralizd or not.
 
 In my mode, only 1 bank provides loan and every individual/corporation have to approach that particular bank in order to avail a loan.It maintains a common database and uses same functions to everyone's properties and give loan to them(if they are eglibile). Since only one authority looks over all the banks, it is centralized.
