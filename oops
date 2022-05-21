@@ -1,60 +1,109 @@
 #include<bits/stdc++.h>
 using namespace std;
-class borrower{
+class interest{
+protected:
+    int interest_rate;
+    string purpose;
+};
+class bank : public interest{
+    long long int balance;
+public:
+    friend void finall();
+    bank(){
+        cout<<"What is the purpose of your loan?{\"education\" for educational loan,\"housing\" for home loan and everything else is considered in other}";
+        cin>>purpose;
+        balance=100000000;
+        if(purpose=="education"){
+            interest_rate=5;
+        }
+        else if(purpose=="housing"){
+                interest_rate=6;
+        }
+        else{
+            interest_rate=7;
+        }
+        // interest_rate=7;
+    }
+};
+class borrower_details{
+protected:
     string name;
     int amount;
     int previousloans;
     vector<pair<int,int> > record;
-    int score;  
+    int score;
+};
+class borrower: public borrower_details{
 public:
-    borrower(){
-        score=750;
-    }
+    friend void finall();
     void score_setter(){
         int t=0;
         for(auto x:record){
-            t+=(x.first*x.second);
+            t+=((x.first)*(x.second));
         }
         while(t>100){
             t=t/10;
         }
         score-=t;
     }
-    borrower(string s,int a,int p,vector<pair<int,int> > temp){
-        name=s;
-        amount=a;
-        previousloans=p;
-        record=temp;
-        score=750;
-    }
-    void score_setter(){
-        int t=0;
-        for(auto x:record){
-            t+=(x.first*x.second);
-        }
-        while(t>100){
-            t=t/10;
-        }
-        score-=t;
+    void print(){
+        cout<<"name "<<name<<endl;
+        cout<<"amount: "<<amount<<endl;
+        cout<<"prloans "<<previousloans<<endl;
+        cout<<"score "<<score<<endl;
     }
     void data_getter(){
-        cout<<"Enter your name: ";
+        cout<<"Enter your name: "<<endl;
         getline(cin,name,'\n');
-        cout<<endl;
         cout<<"how many loans you have taken upto now? ";
         cin>>previousloans;
-        cout<<"enter your details in {amount,penalty in months} format"<<endl;
-        for(int i=0;i<previousloans;i++){
-            cin>>record[i].first;
-            cin>>record[i].second;
+        if(previousloans!=0){
+            cout<<"enter your details in {amount,penalty in months} format"<<endl;
+            for(int i=0;i<previousloans;i++){
+                int temp;
+                cin>>temp;
+                pair<int,int> zz;
+                zz.first=temp;
+                cin>>temp;
+                zz.second=temp;
+                record.push_back(zz);
+            }
         }
         cout<<"Enter amount of money you are applying loan for: "<<endl;
         cin>>amount;
         score_setter();
     }
+    borrower(){
+        score=750;
+        data_getter();
+    }
 };
-class bank{
-    long long int balance;
-    int interest_rate;
-    
+void finall(){
+    borrower a;
+    bank b;
+    int zzzzz=b.interest_rate+(750/a.score)-1;
+    if(a.score >=700 && a.amount<b.balance){
+        cout<<"Congratulations!! you can get loan of "<<a.amount<<" at "<<zzzzz<<"% "<<"interest rate"<<endl;
+    }
+    else{
+        cout<<"Sorry, we can't give you loan!";
+    }
+}
+// class loan{
+// public:
+//     loan(){
+//         cout<<"Do you want loan?{y or n} "<<endl;
+//         char c;
+//         cin>>c;
+//         if(c=='n'){
+//             cout<<"No problem";
+//         }
+//         if(c=='y'){
+//             finall();
+//         }
+//     }
+// };
+int main(){
+    finall();
+    return 0;
 }
