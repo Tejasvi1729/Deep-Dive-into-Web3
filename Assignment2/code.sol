@@ -52,7 +52,7 @@ contract Loan is MetaCoin{
     function reqLoan(uint256 principal,uint rate,uint time) public returns(bool){
         //a loan borrower uses this function to request the owner to settle his loan and calculates the amount
         uint256 amount=getCompoundInterest(principal,rate,time);
-        if(amount>principal){
+        if(amount>principal && loans[msg.sender]<=MetaCoin.balances[owner]){
             emit loan(principal,msg.sender,time);
             loans[msg.sender]+=amount;
             return true;
